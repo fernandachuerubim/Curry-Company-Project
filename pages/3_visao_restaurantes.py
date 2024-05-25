@@ -8,15 +8,10 @@ import folium
 import pandas as pd
 import numpy as np
 import streamlit as st
-import os
 from PIL import Image
 from streamlit_folium import folium_static
 
-st.write("Current Working Directory")
-st.write(os.getcwd())
 
-st.write("Files and Directories")
-st.write(os.listdir('.'))
 
 #===================================================================================================================
 #Funções
