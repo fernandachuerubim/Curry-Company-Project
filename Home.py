@@ -1,12 +1,13 @@
 import streamlit as st
+import os
 from PIL import Image
 
 st.set_page_config(
     page_title="Home")
 
 #image_path = 'C:\Users\Admin\Downloads\FTC\'
-#image = Image.open( 'logo.jpg' )
-#st.sidebar.image( image, widht=120 )
+image = Image.open( 'logo.jpg' )
+st.sidebar.image( image )
 
 st.sidebar.markdown( '# Cury Company' )
 st.sidebar.markdown( '## Fastest Delivery in Town' )
