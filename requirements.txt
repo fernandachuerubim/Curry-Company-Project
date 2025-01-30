@@ -1,7 +1,7 @@
 streamlit==1.41.1
 plotly==5.6.0
 folium==0.16.0
-matplotlib==3.5.3
+matplotlib==3.10.0
 matplotlib-inline==0.1.6
 haversine==2.7.0
 streamlit-folium==0.20.0
