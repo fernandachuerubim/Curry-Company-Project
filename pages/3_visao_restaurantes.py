@@ -171,69 +171,68 @@ df1 = df1.loc[linhas_selecionadas, :]
 #===================================================================================================================
 #Layout no Streamlit
 #===================================================================================================================
-tab1 = st.tabs( ['Visão Gerencial'] )
 
-with tab1:
-    with st.container():
-        st.title( "Overal Metrics" )
-        
-        col1, col2, col3, col4, col5, col6 = st.columns ( 6 ) 
-        with col1:
-            delivery_unique = len(df1.loc[:, 'Delivery_person_ID'].unique())
-            col1.metric('Entregadores', delivery_unique)
 
-        with col2:
-            avg_distance = distance( df1, fig=False )
-            col2.metric('A distancia media', avg_distance) 
-                   
-            
-        with col3:
-            df_aux = avg_std_time_delivery( df1, 'Yes', 'avg_time' )           
-            col3.metric('Tempo Médio', df_aux)
-
-            
-        with col4:
-            df_aux = avg_std_time_delivery( df1, 'Yes', 'std_time' ) 
-            col4.metric('STD Entrega', df_aux)
-            
-            
-        with col5:
-            df_aux = avg_std_time_delivery( df1, 'No', 'avg_time' ) 
-            col5.metric('Tempo Médio', df_aux)
-
-            
-        with col6:
-            df_aux = avg_std_time_delivery( df1, 'No', 'std_time' ) 
-            col6.metric('STD Entrega', df_aux)
-            
-            
-    with st.container():
-        st.markdown( """---""" )
-        st.title( "Tempo Médio por Cidade" )
-        fig = avg_std_time_graph ( df1 )
-        st.plotly_chart ( fig )
-        
-    with st.container():
-        st.markdown( """---""" )
-        st.title( "Média e Desvio-Padrão por Cidade e Tipo de Pedido" )
-        df_aux = df1.loc[:, ['City', 'Time_taken(min)', 'Type_of_order']].groupby(['City', 'Type_of_order']).agg({'Time_taken(min)': ['mean', 'std']})
-        df_aux.columns = ['avg_time', 'std_time']
-        df_aux = df_aux.reset_index()
-        st.dataframe( df_aux )
-       
+with st.container():
+    st.title( "Overal Metrics" )
     
-    with st.container():
-        st.markdown( """---""" )
-        st.title( "Distribuição por Cidade" )
-        fig = distance( df1, fig=True )
-        st.plotly_chart( fig )   
+    col1, col2, col3, col4, col5, col6 = st.columns ( 6 ) 
+    with col1:
+        delivery_unique = len(df1.loc[:, 'Delivery_person_ID'].unique())
+        col1.metric('Entregadores', delivery_unique)
 
-                     
-    with st.container():
-        st.markdown( """---""" )
-        st.title( "Distribuição por Cidade e Densidade de Tráfico" )
-        fig = avg_std_time_on_traffic( df1 )
-        st.plotly_chart( fig )
+    with col2:
+        avg_distance = distance( df1, fig=False )
+        col2.metric('A distancia media', avg_distance) 
+                
+        
+    with col3:
+        df_aux = avg_std_time_delivery( df1, 'Yes', 'avg_time' )           
+        col3.metric('Tempo Médio', df_aux)
+
+        
+    with col4:
+        df_aux = avg_std_time_delivery( df1, 'Yes', 'std_time' ) 
+        col4.metric('STD Entrega', df_aux)
+        
+        
+    with col5:
+        df_aux = avg_std_time_delivery( df1, 'No', 'avg_time' ) 
+        col5.metric('Tempo Médio', df_aux)
+
+        
+    with col6:
+        df_aux = avg_std_time_delivery( df1, 'No', 'std_time' ) 
+        col6.metric('STD Entrega', df_aux)
+        
+        
+with st.container():
+    st.markdown( """---""" )
+    st.title( "Tempo Médio por Cidade" )
+    fig = avg_std_time_graph ( df1 )
+    st.plotly_chart ( fig )
+    
+with st.container():
+    st.markdown( """---""" )
+    st.title( "Média e Desvio-Padrão por Cidade e Tipo de Pedido" )
+    df_aux = df1.loc[:, ['City', 'Time_taken(min)', 'Type_of_order']].groupby(['City', 'Type_of_order']).agg({'Time_taken(min)': ['mean', 'std']})
+    df_aux.columns = ['avg_time', 'std_time']
+    df_aux = df_aux.reset_index()
+    st.dataframe( df_aux )
+    
+
+with st.container():
+    st.markdown( """---""" )
+    st.title( "Distribuição por Cidade" )
+    fig = distance( df1, fig=True )
+    st.plotly_chart( fig )   
+
+                    
+with st.container():
+    st.markdown( """---""" )
+    st.title( "Distribuição por Cidade e Densidade de Tráfico" )
+    fig = avg_std_time_on_traffic( df1 )
+    st.plotly_chart( fig )
           
 
     

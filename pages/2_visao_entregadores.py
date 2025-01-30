@@ -129,67 +129,66 @@ df1 = df1.loc[linhas_selecionadas, :]
 #===================================================================================================================
 #Layout no Streamlit
 #===================================================================================================================
-tab1 = st.tabs( ['Visão Gerencial'] )
 
-with tab1:
-    with st.container():
-        st.title( 'Overall Metrics' )
-        col1, col2, col3, col4 = st.columns( 4, gap='large' )
-        with col1:          
-            #a maior idade dos entregadores
-            #maior_idade = df1.loc[:, 'Delivery_person_Age'].max()
-            maior_idade = df1.loc[:, 'Delivery_person_Age'].max()
-            col1.metric( 'Maior de idade', maior_idade )
-            
-        with col2:
-            #a menor idade dos entregadores
-            menor_idade = df1.loc[:, 'Delivery_person_Age'].min()
-            col2.metric( 'Menor de idade', menor_idade )
-            
-        with col3:
-            #a melhor condição dos entregadores
-            melhor_condicao = df1.loc[:, 'Vehicle_condition'].max()
-            col3.metric( 'Melhor condicao', melhor_condicao )
-            
-        with col4:
-            #a pior condição dos entregadores
-            pior_condicao = df1.loc[:, 'Vehicle_condition'].min()
-            col4.metric( 'Pior condicao', pior_condicao )
-            
-    with st.container():
-        st.markdown( """---""" )
-        st.title( 'Avaliacoes' )
+
+with st.container():
+    st.title( 'Overall Metrics' )
+    col1, col2, col3, col4 = st.columns( 4, gap='large' )
+    with col1:          
+        #a maior idade dos entregadores
+        #maior_idade = df1.loc[:, 'Delivery_person_Age'].max()
+        maior_idade = df1.loc[:, 'Delivery_person_Age'].max()
+        col1.metric( 'Maior de idade', maior_idade )
         
-        col1, col2 = st.columns ( 2 )
-        with col1:
-            st.markdown( '##### Avaliacao media por Entregador' )
-            df_avg_ratings_per_deliver = df1.loc[:, ['Delivery_person_ID', 'Delivery_person_Ratings']].groupby('Delivery_person_ID').mean().reset_index()
-            st.dataframe( df_avg_ratings_per_deliver )
-            
-        with col2:
-            st.markdown( '##### Avaliacao media por Transito' )
-            df_aux = (df1.loc[:, ['Road_traffic_density', 'Delivery_person_Ratings']]
-           .groupby('Road_traffic_density').agg({'Delivery_person_Ratings':['mean', 'std']}))
+    with col2:
+        #a menor idade dos entregadores
+        menor_idade = df1.loc[:, 'Delivery_person_Age'].min()
+        col2.metric( 'Menor de idade', menor_idade )
+        
+    with col3:
+        #a melhor condição dos entregadores
+        melhor_condicao = df1.loc[:, 'Vehicle_condition'].max()
+        col3.metric( 'Melhor condicao', melhor_condicao )
+        
+    with col4:
+        #a pior condição dos entregadores
+        pior_condicao = df1.loc[:, 'Vehicle_condition'].min()
+        col4.metric( 'Pior condicao', pior_condicao )
+        
+with st.container():
+    st.markdown( """---""" )
+    st.title( 'Avaliacoes' )
+    
+    col1, col2 = st.columns ( 2 )
+    with col1:
+        st.markdown( '##### Avaliacao media por Entregador' )
+        df_avg_ratings_per_deliver = df1.loc[:, ['Delivery_person_ID', 'Delivery_person_Ratings']].groupby('Delivery_person_ID').mean().reset_index()
+        st.dataframe( df_avg_ratings_per_deliver )
+        
+    with col2:
+        st.markdown( '##### Avaliacao media por Transito' )
+        df_aux = (df1.loc[:, ['Road_traffic_density', 'Delivery_person_Ratings']]
+        .groupby('Road_traffic_density').agg({'Delivery_person_Ratings':['mean', 'std']}))
 
-            # mudanca de nome das colunas
-            df_aux.columns = ['delivery_mean', 'delivery_std']
+        # mudanca de nome das colunas
+        df_aux.columns = ['delivery_mean', 'delivery_std']
 
-            # reset do index
-            df_aux.reset_index()
-            st.dataframe( df_aux )
-         
-                       
-            st.markdown( '##### Avaliacao media por Clima' )
-            df_aux1 = (df1.loc[:, ['Weatherconditions', 'Delivery_person_Ratings']]
-           .groupby('Weatherconditions').agg({'Delivery_person_Ratings':['mean', 'std']}))
+        # reset do index
+        df_aux.reset_index()
+        st.dataframe( df_aux )
+        
+                    
+        st.markdown( '##### Avaliacao media por Clima' )
+        df_aux1 = (df1.loc[:, ['Weatherconditions', 'Delivery_person_Ratings']]
+        .groupby('Weatherconditions').agg({'Delivery_person_Ratings':['mean', 'std']}))
 
-            # mudanca de nome das colunas
-            df_aux1.columns = ['delivery_mean', 'delivery_std']
+        # mudanca de nome das colunas
+        df_aux1.columns = ['delivery_mean', 'delivery_std']
 
-            # reset do index
-            df_aux1.reset_index()
-            
-            st.dataframe( df_aux1 )
+        # reset do index
+        df_aux1.reset_index()
+        
+        st.dataframe( df_aux1 )
             
             
 #    with st.container():
